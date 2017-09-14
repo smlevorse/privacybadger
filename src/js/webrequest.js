@@ -377,22 +377,25 @@ function getHostForTab(tabId) {
  * @param sender message sender
  * @param msg super cookie message dict
  */
-function recordSuperCookie(sender, msg) {
+function recordSuperCookie(sender, msg, reason) {
   if (!incognito.learningEnabled(sender.tab.id)) {
     return;
   }
 
   // docUrl: url of the frame with supercookie
   var frameHost = window.extractHostFromURL(msg.docUrl);
-  var pageHost = badger.getFrameData(sender.tab.id).host;
+  var {url: pageUrl, host: pageHost} = badger.getFrameData(sender.tab.id);
 
   if (!isThirdPartyDomain(frameHost, pageHost)) {
     // Only happens on the start page for google.com
     return;
   }
 
+  reason.url = msg.docUrl;
+  reason.pageUrl = pageUrl;
+
   badger.heuristicBlocking.updateTrackerPrevalence(
-    frameHost, window.getBaseDomain(pageHost));
+    frameHost, window.getBaseDomain(pageHost), reason);
 }
 
 /**
@@ -413,7 +416,7 @@ function recordFingerprinting(tabId, msg) {
 
   // Ignore first-party scripts
   var script_host = window.extractHostFromURL(msg.scriptUrl),
-    document_host = badger.getFrameData(tabId).host;
+    {url: document_url, host: document_host} = badger.getFrameData(tabId);
   if (!isThirdPartyDomain(script_host, document_host)) {
     return;
   }
@@ -461,7 +464,14 @@ function recordFingerprinting(tabId, msg) {
 
           // Mark this as a strike
           badger.heuristicBlocking.updateTrackerPrevalence(
-            script_host, window.getBaseDomain(document_host));
+            script_host,
+            window.getBaseDomain(document_host),
+            {
+              type: 'canvas',
+              url: msg.scriptUrl,
+              pageUrl: document_url
+            }
+          );
         }
       }
       // This is a canvas write
@@ -684,8 +694,9 @@ function dispatcher(request, sender, sendResponse) {
     }
 
   } else if (request.superCookieReport) {
-    if (badger.hasSuperCookie(request.superCookieReport)) {
-      recordSuperCookie(sender, request.superCookieReport);
+    let tracking = badger.hasSuperCookie(request.superCookieReport);
+    if (tracking) {
+      recordSuperCookie(sender, request.superCookieReport, tracking);
     }
 
   } else if (request.checkEnabledAndThirdParty) {
