@@ -55,7 +55,7 @@
     },
     {
       "js": [
-        "lib/firstparty.js",
+        "js/firstparties/lib/utils.js",
         "js/firstparties/facebook.js"
       ],
       "matches": [
@@ -65,7 +65,7 @@
     },
     {
       "js": [
-        "lib/firstparty.js",
+        "js/firstparties/lib/utils.js",
         "js/firstparties/google.js"
       ],
       "matches": [
@@ -75,7 +75,7 @@
     },
     {
       "js": [
-        "lib/firstparty.js",
+        "js/firstparties/lib/utils.js",
         "js/firstparties/hangouts.js"
       ],
       "matches": [
