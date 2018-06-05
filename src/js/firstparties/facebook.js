@@ -26,10 +26,10 @@ function cleanLink(a) {
   a.href = href;
   a.rel = "noreferrer";
   a.target = "_blank";
-  a.addEventListener("click", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mousedown", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mouseup", function (e) { e.stopPropagation(); }, true);
-  a.addEventListener("mouseover", function (e) { e.stopPropagation(); }, true);
+  a.addEventListener("click", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mousedown", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mouseup", function (e) { e.stopImmediatePropagation(); }, true);
+  a.addEventListener("mouseover", function (e) { e.stopImmediatePropagation(); }, true);
 }
 
 // unwrap wrapped links in the original page
