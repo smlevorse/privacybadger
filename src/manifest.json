@@ -59,7 +59,8 @@
         "js/firstparties/facebook.js"
       ],
       "matches": [
-        "*://*.facebook.com/*"
+        "*://*.facebook.com/*",
+        "*://*.facebookcorewwwi.onion/*"
       ],
       "run_at": "document_idle"
     },
