@@ -531,17 +531,16 @@ function _isTabChromeInternal(tabId) {
 }
 
 /**
- * Checks if the tab is a chrome-extension tab
+ * Checks if the tab is an extension tab
  *
  * @param {Integer} tabId Id of the tab to test
- * @returns {boolean} Returns true if the tab is from a chrome-extension
+ * @returns {boolean} Returns true if the tab is from an extension
  * @private
  */
 function _isTabAnExtension(tabId) {
   let frameData = badger.getFrameData(tabId);
   return (frameData && (
-    frameData.url.startsWith("chrome-extension://") ||
-    frameData.url.startsWith("moz-extension://")
+    frameData.url.startsWith(getExtensionProtocol())
   ));
 }
 

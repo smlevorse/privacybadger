@@ -1,5 +1,8 @@
 Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadger.svg?branch=master)](https://travis-ci.org/EFForg/privacybadger)
 ===================
+
+*This is a fork of the Privacy Badger Chrome extension for Microsoft Edge. Last Updated July 14, 2018.*
+
 Privacy Badger is a browser extension that automatically learns to block invisible trackers. Instead of keeping lists of what to block, Privacy Badger learns by watching which domains appear to be tracking you as you browse the Web.
 
 Privacy Badger sends the [Do Not Track signal](https://www.eff.org/issues/do-not-track) with your browsing. If trackers ignore your wishes, your Badger will learn to block them. Privacy Badger starts blocking once it sees the same tracker on three different websites.
@@ -8,6 +11,7 @@ Besides automatic tracker blocking, Privacy Badger removes outgoing link click t
 
 To learn more, see [the FAQ on Privacy Badger's homepage](https://www.eff.org/privacybadger#badger-faq-header).
 
+To install the Edge fork, follow [these instructions](https://docs.microsoft.com/en-us/microsoft-edge/extensions/guides/adding-and-removing-extensions)
 
 ## Contributing
 
